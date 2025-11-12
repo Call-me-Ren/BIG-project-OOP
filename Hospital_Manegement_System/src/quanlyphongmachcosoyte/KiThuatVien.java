@@ -1,7 +1,5 @@
 package quanlyphongmachcosoyte;
 
-
-
 public class KiThuatVien extends NhanVien {
 	 private double phuCapNguyHiem;
 	    private double thuongHieuSuat;
@@ -39,5 +37,12 @@ public class KiThuatVien extends NhanVien {
 	        System.out.println("So Gio Truc Dem: " + this.soGioTrucDem);
 	        System.out.println("Tong Luong: " + TinhLuong());
 	    }
+	    
+	    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
+	    @Override
+	    public String toFileString() {
+	        // Loại;maID;hoTen;ngaySinh;gioiTinh;sdt;maNV;chucVu;heSoLuong;phuCapNguyHiem;thuongHieuSuat;soGioTrucDem
+	        return "KiThuatVien;" + maID + ";" + hoTen + ";" + ngaySinh + ";" + gioiTinh + ";" + soDienThoai + ";"
+	                + getMaNV() + ";" + chucVu + ";" + heSoLuong + ";" + phuCapNguyHiem + ";" + thuongHieuSuat + ";" + soGioTrucDem;
+	    }
 	}
-

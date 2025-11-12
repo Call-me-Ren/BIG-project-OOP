@@ -3,7 +3,7 @@ package quanlyphongmachcosoyte;
 
 abstract public class NhanVien extends Nguoi {
 	  private String maNV;
-	    private String chucVu;
+	    protected String chucVu; // <--- SỬA TẠI ĐÂY (từ private -> protected)
 	    protected double heSoLuong;
 	    public static final double LUONG_CO_BAN = 4300000;
 
@@ -17,6 +17,9 @@ abstract public class NhanVien extends Nguoi {
 	    }
 
 	    abstract public double TinhLuong();
+	    
+	    // Bắt buộc các lớp con phải định nghĩa cách tự lưu vào file
+	    abstract public String toFileString();
 
 	    @Override
 	    public void xuat() {

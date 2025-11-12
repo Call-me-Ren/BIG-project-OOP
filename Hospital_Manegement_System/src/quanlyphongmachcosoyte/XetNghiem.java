@@ -30,6 +30,13 @@ public class XetNghiem extends DichVuYTe {
         return this.giaTien;
     }
     
+    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
+    @Override
+    public String toFileString() {
+        // Loại;maDV;tenDV;xeploai;giaTien;yeuCauThietBi;loaiXetNghiem
+        return "XetNghiem;" + maDV + ";" + tenDV + ";" + xeploai + ";" + giaTien + ";" + yeuCauThietBi + ";" + loaiXetNghiem;
+    }
+    
     // ... các hàm xeploai(), ThietBi(), danhGiaXetNghiem() của bạn giữ nguyên ...
     public char xeploai() {
         double diemthanhvien = giaTien * 150;

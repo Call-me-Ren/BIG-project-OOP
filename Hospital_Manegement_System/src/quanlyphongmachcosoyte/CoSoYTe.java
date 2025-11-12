@@ -11,7 +11,8 @@ public class CoSoYTe {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        themDuLieuMau();
+        // <--- SỬA: Thay vì thêm dữ liệu mẫu, chúng ta ĐỌC TỪ FILE
+        docTatCaDuLieu();
 
         boolean chay = true;
         while (chay) {
@@ -43,8 +44,10 @@ public class CoSoYTe {
                     menuThongKe();
                     break;
                 case 0:
+                    // <--- THÊM MỚI: Lưu dữ liệu trước khi thoát
+                    luuTatCaDuLieu();
                     chay = false;
-                    System.out.println("Tam biet!");
+                    System.out.println("Da luu du lieu. Tam biet!");
                     break;
                 default:
                     System.out.println("Lua chon khong hop le. Vui long chon lai.");
@@ -81,8 +84,14 @@ public class CoSoYTe {
                 System.out.println("--- Them Benh Nhan Moi ---");
                 System.out.print("Nhap Ma BN (VD: BN003): ");
                 String ma = scanner.nextLine();
-                BenhNhan bnMoi = new BenhNhan("CCCD003", "Tran Van C", "20/10/1992", "Nam", "0909090909",
-                        ma, "11/11/2025", "Viem hong");
+                // <--- SỬA: Cải thiện việc nhập dữ liệu (ví dụ)
+                System.out.print("Nhap Ho Ten: ");
+                String hoTen = scanner.nextLine();
+                System.out.print("Nhap Benh Ly: ");
+                String benhLy = scanner.nextLine();
+                // (Giữ CCCD, NgaySinh... làm ví dụ cho nhanh)
+                BenhNhan bnMoi = new BenhNhan("CCCD003", hoTen, "20/10/1992", "Nam", "0909090909",
+                        ma, "11/11/2025", benhLy);
                 qlBenhNhan.themBN(bnMoi);
                 break;
             case 2:
@@ -256,6 +265,35 @@ public class CoSoYTe {
         }
     }
 
+    // <--- THÊM MỚI: Hàm đọc tất cả dữ liệu khi khởi động --->
+    public static void docTatCaDuLieu() {
+        System.out.println("Dang khoi dong... Doc du lieu tu file.");
+        qlBenhNhan.docTuFile();
+        qlDichVu.docTuFile();
+        qlNhanVien.docTuFile();
+        // qlGiaoDich.docTuFile(); // (Tạm thời chưa lưu/đọc Giao Dịch)
+        
+        // Kiểm tra nếu không có dữ liệu (lần chạy đầu tiên) thì tạo dữ liệu mẫu
+        if (qlBenhNhan.isRong() && qlDichVu.isRong() && qlNhanVien.isRong()) {
+            System.out.println("Khong tim thay file du lieu. Dang tao du lieu mau...");
+            themDuLieuMau();
+            // Lưu ngay dữ liệu mẫu ra file để lần sau có
+            luuTatCaDuLieu();
+        } else {
+            System.out.println("Doc du lieu thanh cong!");
+        }
+    }
+    
+    // <--- THÊM MỚI: Hàm lưu tất cả dữ liệu khi thoát --->
+    public static void luuTatCaDuLieu() {
+        System.out.println("Dang luu du lieu ra file...");
+        qlBenhNhan.luuVaoFile();
+        qlDichVu.luuVaoFile();
+        qlNhanVien.luuVaoFile();
+        // qlGiaoDich.luuVaoFile(); // (Tạm thời chưa lưu/đọc Giao Dịch)
+    }
+
+    // Hàm này vẫn giữ nguyên để dùng cho lần chạy đầu tiên
     public static void themDuLieuMau() {
         System.out.println("Dang them du lieu mau...");
         qlBenhNhan.themBN(new BenhNhan("CCCD001", "Nguyen Van A", "10/10/2000", "Nam", "0123456789",

@@ -30,5 +30,12 @@ public class DieuDuong extends NhanVien {
 	        System.out.println("So Gio Lam Them: " + this.soGioLamThem);
 	        System.out.println("Tong luong: " + TinhLuong());
 	    }
+	    
+	    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
+	    @Override
+	    public String toFileString() {
+	        // Loại;maID;hoTen;ngaySinh;gioiTinh;sdt;maNV;chucVu;heSoLuong;phuCapNgheNghiep;soGioLamThem
+	        return "DieuDuong;" + maID + ";" + hoTen + ";" + ngaySinh + ";" + gioiTinh + ";" + soDienThoai + ";"
+	                + getMaNV() + ";" + chucVu + ";" + heSoLuong + ";" + phuCapNgheNghiep + ";" + soGioLamThem;
+	    }
 	}
-

@@ -25,5 +25,12 @@ public class BacSi extends NhanVien {
 	        System.out.println("Phu Cap Chuc Vu: " + this.phuCapChucVu);
 	        System.out.println("Tong Luong: " + TinhLuong());
 	    }
-	}
 
+	    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
+	    @Override
+	    public String toFileString() {
+	        // Loại;maID;hoTen;ngaySinh;gioiTinh;sdt;maNV;chucVu;heSoLuong;phuCapChucVu
+	        return "BacSi;" + maID + ";" + hoTen + ";" + ngaySinh + ";" + gioiTinh + ";" + soDienThoai + ";"
+	                + getMaNV() + ";" + chucVu + ";" + heSoLuong + ";" + phuCapChucVu;
+	    }
+	}

@@ -19,6 +19,9 @@ abstract public class DichVuYTe {
 
     // Sửa: Thêm hàm trừu tượng này (sửa lỗi cho Thuoc, XetNghiem)
     abstract public double tinhChiPhi();
+    
+    // <--- THÊM MỚI: Bắt buộc các lớp con phải định nghĩa cách tự lưu vào file
+    abstract public String toFileString();
 
     // Sửa: Thêm hàm này để QL_DichVu có thể sửa giá
     // DÒNG NÀY SẼ SỬA LỖI Ở ẢNH 2

@@ -49,6 +49,13 @@ public class Thuoc extends DichVuYTe {
 
         return tienTheoXepLoai + thueVat - hoahong;
     }
+    
+    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
+    @Override
+    public String toFileString() {
+        // Loại;maDV;tenDV;giaTien;donViTinh;hesoThuoc;xeploai
+        return "Thuoc;" + maDV + ";" + tenDV + ";" + giaTien + ";" + donViTinh + ";" + hesoThuoc + ";" + xeploai;
+    }
 
     // Hàm private này tính toán xếp loại dựa trên hệ số
     private char xeploai() {

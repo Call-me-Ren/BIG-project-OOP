@@ -37,4 +37,11 @@ public class BenhNhan extends Nguoi {
     public void setBenhLy(String benhLy) {
         this.benhLy = benhLy;
     }
+    
+    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
+    public String toFileString() {
+        // maID;hoTen;ngaySinh;gioiTinh;sdt;maBN;ngayVaoVien;benhLy
+        return maID + ";" + hoTen + ";" + ngaySinh + ";" + gioiTinh + ";" + soDienThoai + ";"
+                + maBN + ";" + ngayVaoVien + ";" + benhLy;
+    }
 }
