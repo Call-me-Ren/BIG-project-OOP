@@ -29,5 +29,8 @@ abstract public class NhanVien extends Nguoi {
 	        System.out.println("Chuc Vu: " + this.chucVu);
 	        System.out.println("He So Luong: " + this.heSoLuong);
 	    }
-	}
 
+	    public String getMaNV() {
+	        return maNV;
+	    }
+	}
