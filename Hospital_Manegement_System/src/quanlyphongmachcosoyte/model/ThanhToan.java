@@ -1,4 +1,4 @@
-package quanlyphongmachcosoyte;
+package quanlyphongmachcosoyte.model;
 
 public interface ThanhToan {
     // Đổi tên tinhtongtien() -> tinhTongTien()

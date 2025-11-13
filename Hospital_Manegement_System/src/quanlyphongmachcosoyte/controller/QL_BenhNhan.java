@@ -1,4 +1,4 @@
-package quanlyphongmachcosoyte;
+package quanlyphongmachcosoyte.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import quanlyphongmachcosoyte.model.BenhNhan;
 
 public class QL_BenhNhan {
     private List<BenhNhan> danhSachBN;
@@ -27,7 +29,7 @@ public class QL_BenhNhan {
             return;
         }
         this.danhSachBN.add(bn);
-        System.out.println("Da them benh nhan " + bn.hoTen + " vao danh sach.");
+        System.out.println("Da them benh nhan " + bn.layHoTen() + " vao danh sach.");
     }
 
     public BenhNhan timKiemBN(String maBN) {
@@ -55,7 +57,7 @@ public class QL_BenhNhan {
         BenhNhan bn = timKiemBN(maBN);
         if (bn != null) {
             danhSachBN.remove(bn);
-            System.out.println("Da xoa benh nhan: " + bn.hoTen);
+            System.out.println("Da xoa benh nhan: " + bn.layHoTen());
         } else {
             System.out.println("Khong tim thay benh nhan voi ma: " + maBN);
         }
@@ -64,7 +66,7 @@ public class QL_BenhNhan {
     public void suaBN(String maBN, Scanner scanner) {
         BenhNhan bn = timKiemBN(maBN);
         if (bn != null) {
-            System.out.println("Tim thay benh nhan: " + bn.hoTen);
+            System.out.println("Tim thay benh nhan: " + bn.layHoTen());
             System.out.print("Nhap benh ly moi (enter de bo qua): ");
             String benhLyMoi = scanner.nextLine();
             if (!benhLyMoi.trim().isEmpty()) {
@@ -75,11 +77,11 @@ public class QL_BenhNhan {
             System.out.println("Khong tim thay benh nhan voi ma: " + maBN);
         }
     }
-    
+
     public boolean kiemTraRong() {
         return this.danhSachBN.isEmpty();
     }
-    
+
     public void luuVaoTapTin() {
         try (PrintWriter vietRa = new PrintWriter(new FileWriter(TAP_TIN_BENH_NHAN))) {
             for (BenhNhan bn : danhSachBN) {
@@ -102,7 +104,7 @@ public class QL_BenhNhan {
                 String[] phanTach = dong.split(";");
                 try {
                     if (phanTach.length == 8) {
-                        BenhNhan bn = new BenhNhan(phanTach[0], phanTach[1], phanTach[2], phanTach[3], phanTach[4], 
+                        BenhNhan bn = new BenhNhan(phanTach[0], phanTach[1], phanTach[2], phanTach[3], phanTach[4],
                                 phanTach[5], phanTach[6], phanTach[7]);
                         this.danhSachBN.add(bn);
                     }

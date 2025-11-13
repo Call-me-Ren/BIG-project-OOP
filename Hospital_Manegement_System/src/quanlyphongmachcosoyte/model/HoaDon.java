@@ -1,4 +1,4 @@
-package quanlyphongmachcosoyte;
+package quanlyphongmachcosoyte.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,44 @@ public class HoaDon implements ThanhToan {
     private String ngayLap;
     private List<DichVuYTe> danhSachDichVuSuDung;
 
+    // Getter & Setter
+    public String layMaHoaDon() {
+        return maHoaDon;
+    }
+
+    public void thietLapMaHoaDon(String maHoaDon) {
+        this.maHoaDon = maHoaDon;
+    };
+
+    public String layMaBN() {
+        return maBN;
+    }
+
+    public void thietLapMaBN() {
+        this.maBN = maBN;
+    };
+
+    public String layNgayLap() {
+        return ngayLap;
+    }
+
+    public void thietLapNgayLap(String ngayLap) {
+        this.ngayLap = ngayLap;
+    };
+
+    public List<DichVuYTe> layDanhSachDichVuSuDung() {
+        return danhSachDichVuSuDung;
+    }
+
+    public void thietLapDanhSachDichVu(List<DichVuYTe> danhSachDichVuSuDung) {
+        if (danhSachDichVuSuDung != null) {
+            this.danhSachDichVuSuDung = danhSachDichVuSuDung;
+        } else {
+            this.danhSachDichVuSuDung = new ArrayList<>();
+        }
+    }
+
+    // Constructor
     public HoaDon(String maHoaDon, String maBN, String ngayLap) {
         this.maHoaDon = maHoaDon;
         this.maBN = maBN;
@@ -40,7 +78,7 @@ public class HoaDon implements ThanhToan {
             System.out.println("Khong su dung dich vu nao.");
         } else {
             for (DichVuYTe dv : danhSachDichVuSuDung) {
-                System.out.println("- " + dv.tenDV + ": " + String.format("%,.0f", dv.tinhChiPhi()) + " VND");
+                System.out.println("- " + dv.layTenDV() + ": " + String.format("%,.0f", dv.tinhChiPhi()) + " VND");
             }
         }
 
@@ -49,22 +87,6 @@ public class HoaDon implements ThanhToan {
         System.out.println("-------------------------");
     }
 
-    public String layMaHoaDon() {
-        return maHoaDon;
-    }
-
-    public String layMaBN() {
-        return maBN;
-    }
-    
-    public String layNgayLap() {
-        return ngayLap;
-    }
-    
-    public List<DichVuYTe> layDanhSachDichVuSuDung() {
-        return danhSachDichVuSuDung;
-    }
-    
     public String chuyenThanhChuoiLuuTapTin() {
         StringBuilder chuoiKetNoi = new StringBuilder();
         chuoiKetNoi.append(maHoaDon).append(";");
@@ -74,7 +96,7 @@ public class HoaDon implements ThanhToan {
         if (!danhSachDichVuSuDung.isEmpty()) {
             chuoiKetNoi.append(";");
             for (int i = 0; i < danhSachDichVuSuDung.size(); i++) {
-                chuoiKetNoi.append(danhSachDichVuSuDung.get(i).maDV); 
+                chuoiKetNoi.append(danhSachDichVuSuDung.get(i).layMaDV());
                 if (i < danhSachDichVuSuDung.size() - 1) {
                     chuoiKetNoi.append(",");
                 }

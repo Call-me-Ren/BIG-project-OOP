@@ -1,4 +1,4 @@
-package quanlyphongmachcosoyte;
+package quanlyphongmachcosoyte.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import quanlyphongmachcosoyte.model.DichVuYTe;
+import quanlyphongmachcosoyte.model.HoaDon;
+
 public class QL_GiaoDich {
     private List<HoaDon> danhSachHoaDon;
     private static final String TAP_TIN_HOA_DON = "data_hoadon.txt";
@@ -16,7 +19,7 @@ public class QL_GiaoDich {
     public QL_GiaoDich() {
         this.danhSachHoaDon = new ArrayList<>();
     }
-    
+
     public List<HoaDon> layDanhSachHoaDon() {
         return this.danhSachHoaDon;
     }
@@ -57,7 +60,7 @@ public class QL_GiaoDich {
         }
     }
 
-    public double tinhTongDoanhThu() { 
+    public double tinhTongDoanhThu() {
         double tong = 0;
         for (HoaDon hd : danhSachHoaDon) {
             tong += hd.tinhTongTien();
@@ -85,16 +88,16 @@ public class QL_GiaoDich {
         try (Scanner docTapTin = new Scanner(tapTin)) {
             while (docTapTin.hasNextLine()) {
                 String dong = docTapTin.nextLine();
-                String[] phanTach = dong.split(";", -1); 
-                
+                String[] phanTach = dong.split(";", -1);
+
                 if (phanTach.length >= 3) {
                     try {
                         String maHD = phanTach[0];
                         String maBN = phanTach[1];
                         String ngayLap = phanTach[2];
-                        
+
                         HoaDon hd = new HoaDon(maHD, maBN, ngayLap);
-                        
+
                         if (phanTach.length == 4 && !phanTach[3].isEmpty()) {
                             String[] maDVs = phanTach[3].split(",");
                             for (String maDV : maDVs) {
@@ -102,7 +105,8 @@ public class QL_GiaoDich {
                                 if (dv != null) {
                                     hd.themDichVu(dv);
                                 } else {
-                                    System.err.println("Loi: Khong tim thay Dich Vu voi ma: " + maDV + " khi doc file Hoa Don.");
+                                    System.err.println(
+                                            "Loi: Khong tim thay Dich Vu voi ma: " + maDV + " khi doc file Hoa Don.");
                                 }
                             }
                         }

@@ -1,4 +1,4 @@
-package quanlyphongmachcosoyte;
+package quanlyphongmachcosoyte.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +8,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import quanlyphongmachcosoyte.model.DichVuYTe;
+import quanlyphongmachcosoyte.model.Thuoc;
+import quanlyphongmachcosoyte.model.XetNghiem;
 
 public class QL_DichVu {
     private List<DichVuYTe> danhSachDV;
@@ -23,12 +27,12 @@ public class QL_DichVu {
 
     public void themDV(DichVuYTe dv) {
         this.danhSachDV.add(dv);
-        System.out.println("Da them dich vu " + dv.tenDV + " vao danh sach.");
+        System.out.println("Da them dich vu " + dv.layTenDV() + " vao danh sach.");
     }
 
     public DichVuYTe timKiemDV(String maDV) {
         for (DichVuYTe dv : danhSachDV) {
-            if (dv.maDV.equalsIgnoreCase(maDV)) {
+            if (dv.layMaDV().equalsIgnoreCase(maDV)) {
                 return dv;
             }
         }
@@ -51,7 +55,7 @@ public class QL_DichVu {
         DichVuYTe dv = timKiemDV(maDV);
         if (dv != null) {
             danhSachDV.remove(dv);
-            System.out.println("Da xoa dich vu: " + dv.tenDV);
+            System.out.println("Da xoa dich vu: " + dv.layTenDV());
         } else {
             System.out.println("Khong tim thay dich vu voi ma: " + maDV);
         }
@@ -60,11 +64,11 @@ public class QL_DichVu {
     public void suaDV(String maDV, Scanner scanner) {
         DichVuYTe dv = timKiemDV(maDV);
         if (dv != null) {
-            System.out.println("Tim thay dich vu: " + dv.tenDV);
+            System.out.println("Tim thay dich vu: " + dv.layTenDV());
             System.out.print("Nhap gia tien moi: ");
             try {
                 double giaMoi = scanner.nextDouble();
-                scanner.nextLine(); 
+                scanner.nextLine();
                 dv.thietLapGiaTien(giaMoi);
                 System.out.println("Da cap nhat gia thanh cong!");
             } catch (Exception e) {
@@ -75,11 +79,11 @@ public class QL_DichVu {
             System.out.println("Khong tim thay dich vu voi ma: " + maDV);
         }
     }
-    
+
     public boolean kiemTraRong() {
         return this.danhSachDV.isEmpty();
     }
-    
+
     public void luuVaoTapTin() {
         try (PrintWriter vietRa = new PrintWriter(new FileWriter(TAP_TIN_DICH_VU))) {
             for (DichVuYTe dv : danhSachDV) {
@@ -100,15 +104,17 @@ public class QL_DichVu {
             while (docTapTin.hasNextLine()) {
                 String dong = docTapTin.nextLine();
                 String[] phanTach = dong.split(";");
-                if (phanTach.length < 1) continue;
+                if (phanTach.length < 1)
+                    continue;
                 String loaiDV = phanTach[0];
                 try {
                     if (loaiDV.equals("Thuoc") && phanTach.length == 7) {
-                        Thuoc t = new Thuoc(phanTach[1], phanTach[2], Double.parseDouble(phanTach[3]), phanTach[4], 
+                        Thuoc t = new Thuoc(phanTach[1], phanTach[2], Double.parseDouble(phanTach[3]), phanTach[4],
                                 Double.parseDouble(phanTach[5]), phanTach[6].charAt(0));
                         this.danhSachDV.add(t);
                     } else if (loaiDV.equals("XetNghiem") && phanTach.length == 7) {
-                        XetNghiem xn = new XetNghiem(phanTach[1], phanTach[2], phanTach[3].charAt(0), Double.parseDouble(phanTach[4]), 
+                        XetNghiem xn = new XetNghiem(phanTach[1], phanTach[2], phanTach[3].charAt(0),
+                                Double.parseDouble(phanTach[4]),
                                 phanTach[5], phanTach[6]);
                         this.danhSachDV.add(xn);
                     }
