@@ -1,31 +1,28 @@
 package quanlyphongmachcosoyte;
 
-// Sửa: Thêm abstract tinhChiPhi() và setGiaTien()
-// Sửa: Xóa 'static' khỏi giaTien
 abstract public class DichVuYTe {
     protected String maDV;
     protected String tenDV;
-    protected double giaTien; // Sửa: Xóa 'static'
+    protected double giaTien;
     protected char xeploai;
 
     public DichVuYTe(String maDV, String tenDV, double giaTien, char xeploai) {
         this.maDV = maDV;
         this.tenDV = tenDV;
-        this.giaTien = giaTien; // Sửa: Gán giá tiền
+        this.giaTien = giaTien;
         this.xeploai = xeploai;
     }
 
-    abstract public void HienThi();
+    // Đã đổi tên HienThi -> hienThi
+    abstract public void hienThi(); 
 
-    // Sửa: Thêm hàm trừu tượng này (sửa lỗi cho Thuoc, XetNghiem)
     abstract public double tinhChiPhi();
     
-    // <--- THÊM MỚI: Bắt buộc các lớp con phải định nghĩa cách tự lưu vào file
-    abstract public String toFileString();
+    // Đã đổi tên toFileString -> chuyenThanhChuoiLuuTapTin
+    abstract public String chuyenThanhChuoiLuuTapTin();
 
-    // Sửa: Thêm hàm này để QL_DichVu có thể sửa giá
-    // DÒNG NÀY SẼ SỬA LỖI Ở ẢNH 2
-    public void setGiaTien(double giaMoi) {
+    // Đã đổi tên setGiaTien -> thietLapGiaTien
+    public void thietLapGiaTien(double giaMoi) {
         if (giaMoi > 0) {
             this.giaTien = giaMoi;
         }

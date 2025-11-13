@@ -1,37 +1,33 @@
 package quanlyphongmachcosoyte;
 
-// Sửa: Implement hàm tinhChiPhi()
-// Sửa: Sửa logic hàm xeploai() để tránh chia cho 0
 public class Thuoc extends DichVuYTe {
     private String donViTinh;
     private double hesoThuoc;
 
-    // Constructor
     public Thuoc(String maDV, String tenDV, double giaTien, String donViTinh, double hesoThuoc, char xeploai) {
         super(maDV, tenDV, giaTien, xeploai);
         this.donViTinh = donViTinh;
-        this.hesoThuoc = hesoThuoc; // Sửa: Gán giá trị
+        this.hesoThuoc = hesoThuoc;
     }
 
     @Override
-    public void HienThi() {
-        System.out.println("--- Thông tin Thuốc ---");
-        System.out.println("Mã Dịch vụ: " + this.maDV);
-        System.out.println("Tên Thuốc: " + this.tenDV);
-        System.out.println("Giá Tiền (gốc): " + this.giaTien + " VND"); // Sửa: Lấy this.giaTien
-        System.out.println("Đơn vị Tính: " + this.donViTinh);
-        System.out.println("Xếp loại (tính toán): " + xeploai());
-        System.out.println("Hệ số thuốc: " + hesoThuoc);
+    public void hienThi() { // Triển khai đúng tên mới
+        System.out.println("--- Thong tin Thuoc ---");
+        System.out.println("Ma Dich vu: " + this.maDV);
+        System.out.println("Ten Thuoc: " + this.tenDV);
+        System.out.println("Gia Tien (goc): " + this.giaTien + " VND");
+        System.out.println("Don vi Tinh: " + this.donViTinh);
+        System.out.println("Xep loai (tinh toan): " + xepLoaiTinhToan());
+        System.out.println("He so thuoc: " + hesoThuoc);
         System.out.println("-------------------------");
     }
 
-    // Sửa: Thực thi (implement) phương thức abstract từ lớp cha
     @Override
     public double tinhChiPhi() {
         double tienthuocCoBan = hesoThuoc * giaTien;
         double tienTheoXepLoai;
 
-        switch (xeploai()) {
+        switch (xepLoaiTinhToan()) {
             case 'A':
                 tienTheoXepLoai = tienthuocCoBan / 0.75;
                 break;
@@ -44,22 +40,18 @@ public class Thuoc extends DichVuYTe {
                 break;
         }
 
-        double thueVat = tienTheoXepLoai * 0.15; // Giả định thuế 15%
-        double hoahong = giaTien * 0.15; // Logic hoa hồng của bạn
+        double thueVat = tienTheoXepLoai * 0.15;
+        double hoaHong = giaTien * 0.15;
 
-        return tienTheoXepLoai + thueVat - hoahong;
+        return tienTheoXepLoai + thueVat - hoaHong;
     }
     
-    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
     @Override
-    public String toFileString() {
-        // Loại;maDV;tenDV;giaTien;donViTinh;hesoThuoc;xeploai
+    public String chuyenThanhChuoiLuuTapTin() { // Triển khai đúng tên mới
         return "Thuoc;" + maDV + ";" + tenDV + ";" + giaTien + ";" + donViTinh + ";" + hesoThuoc + ";" + xeploai;
     }
 
-    // Hàm private này tính toán xếp loại dựa trên hệ số
-    private char xeploai() {
-        // Sửa: Kiểm tra hesoThuoc để tránh lỗi chia cho 0
+    private char xepLoaiTinhToan() {
         if (this.hesoThuoc == 0) return 'D';
 
         double diemtichluy = (giaTien / hesoThuoc) * 100;

@@ -3,11 +3,10 @@ package quanlyphongmachcosoyte;
 
 abstract public class NhanVien extends Nguoi {
 	  private String maNV;
-	    protected String chucVu; // <--- SỬA TẠI ĐÂY (từ private -> protected)
+	    protected String chucVu;
 	    protected double heSoLuong;
 	    public static final double LUONG_CO_BAN = 4300000;
 
-	    // Constructor
 	    public NhanVien(String maID, String hoTen, String ngaySinh, String gioiTinh, String soDienThoai, String maNV,
 	            String chucVu, double heSoLuong) {
 	        super(maID, hoTen, ngaySinh, gioiTinh, soDienThoai);
@@ -16,10 +15,9 @@ abstract public class NhanVien extends Nguoi {
 	        this.heSoLuong = heSoLuong;
 	    }
 
-	    abstract public double TinhLuong();
+	    abstract public double tinhLuong(); // Đã đổi tên TinhLuong -> tinhLuong
 	    
-	    // Bắt buộc các lớp con phải định nghĩa cách tự lưu vào file
-	    abstract public String toFileString();
+	    abstract public String chuyenThanhChuoiLuuTapTin(); // Đã đổi tên toFileString -> chuyenThanhChuoiLuuTapTin
 
 	    @Override
 	    public void xuat() {
@@ -33,7 +31,7 @@ abstract public class NhanVien extends Nguoi {
 	        System.out.println("He So Luong: " + this.heSoLuong);
 	    }
 
-	    public String getMaNV() {
+	    public String layMaNV() { // Đã đổi tên getMaNV -> layMaNV
 	        return maNV;
 	    }
 	}

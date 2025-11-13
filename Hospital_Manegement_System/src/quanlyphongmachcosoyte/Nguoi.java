@@ -1,7 +1,5 @@
 package quanlyphongmachcosoyte;
 
-
-
 abstract public class Nguoi {
 protected String maID;
 protected String hoTen;

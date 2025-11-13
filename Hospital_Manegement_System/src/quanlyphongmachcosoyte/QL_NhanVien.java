@@ -11,20 +11,19 @@ import java.util.Scanner;
 
 public class QL_NhanVien {
     private List<NhanVien> danhSachNV;
-    private static final String FILE_NHANVIEN = "data_nhanvien.txt";
+    private static final String TAP_TIN_NHAN_VIEN = "data_nhanvien.txt";
 
     public QL_NhanVien() {
         this.danhSachNV = new ArrayList<>();
     }
 
-    // Hàm trả về danh sách để GUI sử dụng (FIX LỖI ĐỎ)
-    public List<NhanVien> getDanhSachNV() {
+    public List<NhanVien> layDanhSachNV() {
         return this.danhSachNV;
     }
 
     public void themNV(NhanVien nv) {
-        if (timKiemNV(nv.getMaNV()) != null) {
-            System.out.println("Loi: Ma NV " + nv.getMaNV() + " da ton tai.");
+        if (timKiemNV(nv.layMaNV()) != null) {
+            System.out.println("Loi: Ma NV " + nv.layMaNV() + " da ton tai.");
             return;
         }
         this.danhSachNV.add(nv);
@@ -33,7 +32,7 @@ public class QL_NhanVien {
 
     public NhanVien timKiemNV(String maNV) {
         for (NhanVien nv : danhSachNV) {
-            if (nv.getMaNV().equalsIgnoreCase(maNV)) {
+            if (nv.layMaNV().equalsIgnoreCase(maNV)) {
                 return nv;
             }
         }
@@ -55,10 +54,10 @@ public class QL_NhanVien {
         if (nv != null) {
             System.out.println("Tim thay nhan vien: " + nv.hoTen);
             System.out.print("Nhap He So Luong moi (enter de bo qua): ");
-            String input = scanner.nextLine();
-            if (!input.trim().isEmpty()) {
+            String duLieuNhap = scanner.nextLine();
+            if (!duLieuNhap.trim().isEmpty()) {
                 try {
-                    double heSoMoi = Double.parseDouble(input);
+                    double heSoMoi = Double.parseDouble(duLieuNhap);
                     nv.heSoLuong = heSoMoi;
                     System.out.println("Da cap nhat he so luong!");
                 } catch (Exception e) {
@@ -89,55 +88,55 @@ public class QL_NhanVien {
             return;
         }
         for (NhanVien nv : danhSachNV) {
-            tongLuong += nv.TinhLuong(); 
+            tongLuong += nv.tinhLuong(); 
         }
         System.out.println("=================================");
         System.out.println("==> TONG QUY LUONG THANG: " + String.format("%.0f", tongLuong) + " VND");
         System.out.println("=================================");
     }
     
-    public boolean isRong() {
+    public boolean kiemTraRong() {
         return this.danhSachNV.isEmpty();
     }
     
-    public void luuVaoFile() {
-        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_NHANVIEN))) {
+    public void luuVaoTapTin() {
+        try (PrintWriter vietRa = new PrintWriter(new FileWriter(TAP_TIN_NHAN_VIEN))) {
             for (NhanVien nv : danhSachNV) {
-                out.println(nv.toFileString());
+                vietRa.println(nv.chuyenThanhChuoiLuuTapTin());
             }
         } catch (IOException e) {
             System.err.println("Loi khi luu file nhan vien: " + e.getMessage());
         }
     }
     
-    public void docTuFile() {
-        File file = new File(FILE_NHANVIEN);
-        if (!file.exists()) {
+    public void docDuLieuTuTapTin() {
+        File tapTin = new File(TAP_TIN_NHAN_VIEN);
+        if (!tapTin.exists()) {
             return;
         }
         this.danhSachNV.clear();
-        try (Scanner fileScanner = new Scanner(file)) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] parts = line.split(";");
-                if (parts.length < 1) continue;
-                String loaiNV = parts[0];
+        try (Scanner docTapTin = new Scanner(tapTin)) {
+            while (docTapTin.hasNextLine()) {
+                String dong = docTapTin.nextLine();
+                String[] phanTach = dong.split(";");
+                if (phanTach.length < 1) continue;
+                String loaiNV = phanTach[0];
                 try {
-                    if (loaiNV.equals("BacSi") && parts.length == 10) {
-                        BacSi bs = new BacSi(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], 
-                                Double.parseDouble(parts[8]), Double.parseDouble(parts[9]));
+                    if (loaiNV.equals("BacSi") && phanTach.length == 10) {
+                        BacSi bs = new BacSi(phanTach[1], phanTach[2], phanTach[3], phanTach[4], phanTach[5], phanTach[6], phanTach[7], 
+                                Double.parseDouble(phanTach[8]), Double.parseDouble(phanTach[9]));
                         this.danhSachNV.add(bs);
-                    } else if (loaiNV.equals("DieuDuong") && parts.length == 11) {
-                        DieuDuong dd = new DieuDuong(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], 
-                                Double.parseDouble(parts[8]), Double.parseDouble(parts[9]), Integer.parseInt(parts[10]));
+                    } else if (loaiNV.equals("DieuDuong") && phanTach.length == 11) {
+                        DieuDuong dd = new DieuDuong(phanTach[1], phanTach[2], phanTach[3], phanTach[4], phanTach[5], phanTach[6], phanTach[7], 
+                                Double.parseDouble(phanTach[8]), Double.parseDouble(phanTach[9]), Integer.parseInt(phanTach[10]));
                         this.danhSachNV.add(dd);
-                    } else if (loaiNV.equals("KiThuatVien") && parts.length == 12) {
-                        KiThuatVien ktv = new KiThuatVien(parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], 
-                                Double.parseDouble(parts[8]), Double.parseDouble(parts[9]), Double.parseDouble(parts[10]), Integer.parseInt(parts[11]));
+                    } else if (loaiNV.equals("KiThuatVien") && phanTach.length == 12) {
+                        KiThuatVien ktv = new KiThuatVien(phanTach[1], phanTach[2], phanTach[3], phanTach[4], phanTach[5], phanTach[6], phanTach[7], 
+                                Double.parseDouble(phanTach[8]), Double.parseDouble(phanTach[9]), Double.parseDouble(phanTach[10]), Integer.parseInt(phanTach[11]));
                         this.danhSachNV.add(ktv);
                     }
                 } catch (Exception e) {
-                    System.err.println("Loi parsing NV: " + line);
+                    System.err.println("Loi parsing NV: " + dong);
                 }
             }
         } catch (FileNotFoundException e) {

@@ -11,20 +11,19 @@ import java.util.Scanner;
 
 public class QL_BenhNhan {
     private List<BenhNhan> danhSachBN;
-    private static final String FILE_BENHNHAN = "data_benhnhan.txt";
+    private static final String TAP_TIN_BENH_NHAN = "data_benhnhan.txt";
 
     public QL_BenhNhan() {
         this.danhSachBN = new ArrayList<>();
     }
 
-    // Hàm trả về danh sách để GUI sử dụng (FIX LỖI ĐỎ)
-    public List<BenhNhan> getDanhSachBN() {
+    public List<BenhNhan> layDanhSachBN() {
         return this.danhSachBN;
     }
 
     public void themBN(BenhNhan bn) {
-        if (timKiemBN(bn.getMaBN()) != null) {
-            System.out.println("Loi: Ma BN " + bn.getMaBN() + " da ton tai.");
+        if (timKiemBN(bn.layMaBN()) != null) {
+            System.out.println("Loi: Ma BN " + bn.layMaBN() + " da ton tai.");
             return;
         }
         this.danhSachBN.add(bn);
@@ -33,7 +32,7 @@ public class QL_BenhNhan {
 
     public BenhNhan timKiemBN(String maBN) {
         for (BenhNhan bn : danhSachBN) {
-            if (bn.getMaBN().equalsIgnoreCase(maBN)) {
+            if (bn.layMaBN().equalsIgnoreCase(maBN)) {
                 return bn;
             }
         }
@@ -69,7 +68,7 @@ public class QL_BenhNhan {
             System.out.print("Nhap benh ly moi (enter de bo qua): ");
             String benhLyMoi = scanner.nextLine();
             if (!benhLyMoi.trim().isEmpty()) {
-                bn.setBenhLy(benhLyMoi);
+                bn.thietLapBenhLy(benhLyMoi);
                 System.out.println("Da cap nhat benh ly!");
             }
         } else {
@@ -77,38 +76,38 @@ public class QL_BenhNhan {
         }
     }
     
-    public boolean isRong() {
+    public boolean kiemTraRong() {
         return this.danhSachBN.isEmpty();
     }
     
-    public void luuVaoFile() {
-        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_BENHNHAN))) {
+    public void luuVaoTapTin() {
+        try (PrintWriter vietRa = new PrintWriter(new FileWriter(TAP_TIN_BENH_NHAN))) {
             for (BenhNhan bn : danhSachBN) {
-                out.println(bn.toFileString());
+                vietRa.println(bn.chuyenThanhChuoiLuuTapTin());
             }
         } catch (IOException e) {
             System.err.println("Loi khi luu file benh nhan: " + e.getMessage());
         }
     }
 
-    public void docTuFile() {
-        File file = new File(FILE_BENHNHAN);
-        if (!file.exists()) {
+    public void docDuLieuTuTapTin() {
+        File tapTin = new File(TAP_TIN_BENH_NHAN);
+        if (!tapTin.exists()) {
             return;
         }
         this.danhSachBN.clear();
-        try (Scanner fileScanner = new Scanner(file)) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] parts = line.split(";");
+        try (Scanner docTapTin = new Scanner(tapTin)) {
+            while (docTapTin.hasNextLine()) {
+                String dong = docTapTin.nextLine();
+                String[] phanTach = dong.split(";");
                 try {
-                    if (parts.length == 8) {
-                        BenhNhan bn = new BenhNhan(parts[0], parts[1], parts[2], parts[3], parts[4], 
-                                parts[5], parts[6], parts[7]);
+                    if (phanTach.length == 8) {
+                        BenhNhan bn = new BenhNhan(phanTach[0], phanTach[1], phanTach[2], phanTach[3], phanTach[4], 
+                                phanTach[5], phanTach[6], phanTach[7]);
                         this.danhSachBN.add(bn);
                     }
                 } catch (Exception e) {
-                    System.err.println("Loi parsing line BN: " + line);
+                    System.err.println("Loi parsing line BN: " + dong);
                 }
             }
         } catch (FileNotFoundException e) {

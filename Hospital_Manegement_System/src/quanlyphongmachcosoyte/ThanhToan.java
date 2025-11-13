@@ -1,5 +1,6 @@
 package quanlyphongmachcosoyte;
 
 public interface ThanhToan {
-double tinhtongtien();
+    // Đổi tên tinhtongtien() -> tinhTongTien()
+    double tinhTongTien();
 }

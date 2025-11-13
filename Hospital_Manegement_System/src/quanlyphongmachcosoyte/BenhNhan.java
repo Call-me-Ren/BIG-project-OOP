@@ -25,24 +25,23 @@ public class BenhNhan extends Nguoi {
         System.out.println("Benh Ly: " + this.benhLy);
     }
 
-    public String getMaBN() {
+    public String layMaBN() {
         return maBN;
     }
 
-    public void setBenhLy(String benhLy) {
+    public void thietLapBenhLy(String benhLy) {
         this.benhLy = benhLy;
     }
     
-    // --- CÁC HÀM GETTER MỚI CHO GUI ---
-    public String getNgayVaoVien() {
+    public String layNgayVaoVien() {
         return ngayVaoVien;
     }
 
-    public String getBenhLy() {
+    public String layBenhLy() {
         return benhLy;
     }
     
-    public String toFileString() {
+    public String chuyenThanhChuoiLuuTapTin() {
         return maID + ";" + hoTen + ";" + ngaySinh + ";" + gioiTinh + ";" + soDienThoai + ";"
                 + maBN + ";" + ngayVaoVien + ";" + benhLy;
     }

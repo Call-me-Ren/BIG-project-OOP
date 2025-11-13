@@ -3,7 +3,6 @@ package quanlyphongmachcosoyte;
 public class BacSi extends NhanVien {
 	 private double phuCapChucVu;
 
-	    // Constructor
 	    public BacSi(String maID, String hoTen, String ngaySinh, String gioiTinh, String soDienThoai, String maNV,
 	            String chucVu, double heSoLuong, double phuCapChucVu) {
 	        super(maID, hoTen, ngaySinh, gioiTinh, soDienThoai, maNV, chucVu, heSoLuong);
@@ -11,10 +10,10 @@ public class BacSi extends NhanVien {
 	    }
 
 	    @Override
-	    public double TinhLuong() {
+	    public double tinhLuong() {
 	        double luong;
 	        double luongCoCau = this.heSoLuong * NhanVien.LUONG_CO_BAN;
-	        double phuCapUuDaiNghe = luongCoCau * 0.40; // Phụ cấp nghề 40%
+	        double phuCapUuDaiNghe = luongCoCau * 0.40;
 	        double tongLuong = luongCoCau + phuCapUuDaiNghe + phuCapChucVu;
 	        return tongLuong;
 	    }
@@ -23,14 +22,12 @@ public class BacSi extends NhanVien {
 	    public void xuat() {
 	        super.xuat();
 	        System.out.println("Phu Cap Chuc Vu: " + this.phuCapChucVu);
-	        System.out.println("Tong Luong: " + TinhLuong());
+	        System.out.println("Tong Luong: " + tinhLuong());
 	    }
 
-	    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
 	    @Override
-	    public String toFileString() {
-	        // Loại;maID;hoTen;ngaySinh;gioiTinh;sdt;maNV;chucVu;heSoLuong;phuCapChucVu
+	    public String chuyenThanhChuoiLuuTapTin() {
 	        return "BacSi;" + maID + ";" + hoTen + ";" + ngaySinh + ";" + gioiTinh + ";" + soDienThoai + ";"
-	                + getMaNV() + ";" + chucVu + ";" + heSoLuong + ";" + phuCapChucVu;
+	                + layMaNV() + ";" + chucVu + ";" + heSoLuong + ";" + phuCapChucVu;
 	    }
 	}

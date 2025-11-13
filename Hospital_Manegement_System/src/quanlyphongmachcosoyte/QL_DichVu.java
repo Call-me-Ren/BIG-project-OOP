@@ -11,14 +11,13 @@ import java.util.Scanner;
 
 public class QL_DichVu {
     private List<DichVuYTe> danhSachDV;
-    private static final String FILE_DICHVU = "data_dichvu.txt";
+    private static final String TAP_TIN_DICH_VU = "data_dichvu.txt";
 
     public QL_DichVu() {
         this.danhSachDV = new ArrayList<>();
     }
 
-    // Hàm trả về danh sách để GUI sử dụng (FIX LỖI ĐỎ)
-    public List<DichVuYTe> getDanhSachDV() {
+    public List<DichVuYTe> layDanhSachDV() {
         return this.danhSachDV;
     }
 
@@ -43,7 +42,7 @@ public class QL_DichVu {
         }
         System.out.println("--- DANH SACH DICH VU Y TE ---");
         for (DichVuYTe dv : danhSachDV) {
-            dv.HienThi();
+            dv.hienThi();
             System.out.println("-------------------------");
         }
     }
@@ -66,7 +65,7 @@ public class QL_DichVu {
             try {
                 double giaMoi = scanner.nextDouble();
                 scanner.nextLine(); 
-                dv.setGiaTien(giaMoi);
+                dv.thietLapGiaTien(giaMoi);
                 System.out.println("Da cap nhat gia thanh cong!");
             } catch (Exception e) {
                 System.out.println("Loi: Vui long nhap so.");
@@ -77,44 +76,44 @@ public class QL_DichVu {
         }
     }
     
-    public boolean isRong() {
+    public boolean kiemTraRong() {
         return this.danhSachDV.isEmpty();
     }
     
-    public void luuVaoFile() {
-        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_DICHVU))) {
+    public void luuVaoTapTin() {
+        try (PrintWriter vietRa = new PrintWriter(new FileWriter(TAP_TIN_DICH_VU))) {
             for (DichVuYTe dv : danhSachDV) {
-                out.println(dv.toFileString());
+                vietRa.println(dv.chuyenThanhChuoiLuuTapTin());
             }
         } catch (IOException e) {
             System.err.println("Loi khi luu file dich vu: " + e.getMessage());
         }
     }
 
-    public void docTuFile() {
-        File file = new File(FILE_DICHVU);
-        if (!file.exists()) {
+    public void docDuLieuTuTapTin() {
+        File tapTin = new File(TAP_TIN_DICH_VU);
+        if (!tapTin.exists()) {
             return;
         }
         this.danhSachDV.clear();
-        try (Scanner fileScanner = new Scanner(file)) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] parts = line.split(";");
-                if (parts.length < 1) continue;
-                String loaiDV = parts[0];
+        try (Scanner docTapTin = new Scanner(tapTin)) {
+            while (docTapTin.hasNextLine()) {
+                String dong = docTapTin.nextLine();
+                String[] phanTach = dong.split(";");
+                if (phanTach.length < 1) continue;
+                String loaiDV = phanTach[0];
                 try {
-                    if (loaiDV.equals("Thuoc") && parts.length == 7) {
-                        Thuoc t = new Thuoc(parts[1], parts[2], Double.parseDouble(parts[3]), parts[4], 
-                                Double.parseDouble(parts[5]), parts[6].charAt(0));
+                    if (loaiDV.equals("Thuoc") && phanTach.length == 7) {
+                        Thuoc t = new Thuoc(phanTach[1], phanTach[2], Double.parseDouble(phanTach[3]), phanTach[4], 
+                                Double.parseDouble(phanTach[5]), phanTach[6].charAt(0));
                         this.danhSachDV.add(t);
-                    } else if (loaiDV.equals("XetNghiem") && parts.length == 7) {
-                        XetNghiem xn = new XetNghiem(parts[1], parts[2], parts[3].charAt(0), Double.parseDouble(parts[4]), 
-                                parts[5], parts[6]);
+                    } else if (loaiDV.equals("XetNghiem") && phanTach.length == 7) {
+                        XetNghiem xn = new XetNghiem(phanTach[1], phanTach[2], phanTach[3].charAt(0), Double.parseDouble(phanTach[4]), 
+                                phanTach[5], phanTach[6]);
                         this.danhSachDV.add(xn);
                     }
                 } catch (Exception e) {
-                    System.err.println("Loi parsing DV: " + line);
+                    System.err.println("Loi parsing DV: " + dong);
                 }
             }
         } catch (FileNotFoundException e) {

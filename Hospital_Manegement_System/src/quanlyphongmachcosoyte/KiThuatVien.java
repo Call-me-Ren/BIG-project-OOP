@@ -5,7 +5,6 @@ public class KiThuatVien extends NhanVien {
 	    private double thuongHieuSuat;
 	    private int soGioTrucDem;
 
-	    // Constructor
 	    public KiThuatVien(String maID, String hoTen, String ngaySinh, String gioiTinh, String soDienThoai, String maNV,
 	            String chucVu, double heSoLuong, double phuCapNguyHiem, double thuongHieuSuat, int soGioTrucDem) {
 	        super(maID, hoTen, ngaySinh, gioiTinh, soDienThoai, maNV, chucVu, heSoLuong);
@@ -15,12 +14,12 @@ public class KiThuatVien extends NhanVien {
 	    }
 
 	    @Override
-	    public double TinhLuong() {
+	    public double tinhLuong() {
 
 	        final double LUONG_CO_BAN = NhanVien.LUONG_CO_BAN;
 	        double luongCoCau = this.heSoLuong * LUONG_CO_BAN;
 	        double phuCapDocHai = luongCoCau * 0.30;
-	        final double GIO_CHAM_CHUAN = 176; // Số giờ làm việc chuẩn trong tháng
+	        final double GIO_CHAM_CHUAN = 176;
 	        double donGiaLuongGio = luongCoCau / GIO_CHAM_CHUAN;
 	        double luongTrucDem = this.soGioTrucDem * donGiaLuongGio * 1.3;
 	        double thuongHieuSuat = this.thuongHieuSuat;
@@ -35,14 +34,12 @@ public class KiThuatVien extends NhanVien {
 	        System.out.println("Phu Cap Nguy Hiem: " + this.phuCapNguyHiem);
 	        System.out.println("Thuong Hieu Suat: " + this.thuongHieuSuat);
 	        System.out.println("So Gio Truc Dem: " + this.soGioTrucDem);
-	        System.out.println("Tong Luong: " + TinhLuong());
+	        System.out.println("Tong Luong: " + tinhLuong());
 	    }
 	    
-	    // <--- THÊM MỚI: Định nghĩa chuỗi để lưu file
 	    @Override
-	    public String toFileString() {
-	        // Loại;maID;hoTen;ngaySinh;gioiTinh;sdt;maNV;chucVu;heSoLuong;phuCapNguyHiem;thuongHieuSuat;soGioTrucDem
+	    public String chuyenThanhChuoiLuuTapTin() {
 	        return "KiThuatVien;" + maID + ";" + hoTen + ";" + ngaySinh + ";" + gioiTinh + ";" + soDienThoai + ";"
-	                + getMaNV() + ";" + chucVu + ";" + heSoLuong + ";" + phuCapNguyHiem + ";" + thuongHieuSuat + ";" + soGioTrucDem;
+	                + layMaNV() + ";" + chucVu + ";" + heSoLuong + ";" + phuCapNguyHiem + ";" + thuongHieuSuat + ";" + soGioTrucDem;
 	    }
 	}

@@ -1,4 +1,0 @@
-Thuoc;T001;Paracetamol;15000.0;Vien;1.0;B
-Thuoc;T002;Berberin;20000.0;Vien;1.0;C
-XetNghiem;XN001;Xet nghiem mau;A;150000.0;May ly tam;Mau
-XetNghiem;XN002;Sieu am o bung;B;200000.0;May sieu am;Hinh anh
